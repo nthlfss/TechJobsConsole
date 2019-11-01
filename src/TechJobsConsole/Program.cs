@@ -23,7 +23,7 @@ namespace TechJobsConsole
             columnChoices.Add("all", "All");
 
             Console.WriteLine("Welcome to LaunchCode's TechJobs App!");
-
+   
             // Allow user to search/list until they manually quit with ctrl+c
             while (true)
             {
@@ -63,7 +63,8 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(searchTerm);
+                        PrintJobs(searchResults);
                     }
                     else
                     {
@@ -118,7 +119,21 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("printJobs is not implemented yet");
+            if (someJobs.Count > 0) // check if input entered
+            {
+                foreach (Dictionary<string, string> job in someJobs) // loop through dictionary
+                {
+                    Console.WriteLine("*****"); // a divider for formatting
+                    foreach (KeyValuePair<string,string> detail in job) // print out each job one detail at a time
+                    {
+                        Console.WriteLine("{0} : {1}", detail.Key, detail.Value);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("No value entered"); // input empty
+            }
         }
     }
 }
